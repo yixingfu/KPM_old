@@ -1,0 +1,15 @@
+#### Last Modified=Wed 04 Apr 2018 03:36:16 PM EDT
+rm *.in
+for W in 0.50; do
+for Tx in $(seq -1. 0.01 1); do
+export Ty=0.0
+export FileName=$W\_$Tx\_$Ty
+echo "2,10,16,$W,0, 0" >> batch$FileName.in ### D,L for nonQP or fiboN for QP,Nc,W,Rep,RLZ0
+echo ".true., .true., .false. " >> batch$FileName.in ### QP?, fixTwist?, Slow OPTCOND?
+echo "1, 1 " >> batch$FileName.in ### RHO=1,OPTCOND=2,RHODER=3; RandPOT=1,RandHOP=2
+echo "$Tx,$Ty,1. " >> batch$FileName.in ### Twist(-1 to 1), correspond to -pi to pi
+echo "'$FileName'">>batch$FileName.in ###out file(mark disorder)
+echo ".false.,.false.">>batch$FileName.in ###Inherit,SaveAll
+echo ".true.,.false.">>batch$FileName.in ###Exact Spectrum; Exact Eigen States
+done
+done
