@@ -118,7 +118,7 @@
                         close(62)
                      open(62, file=trim(outputfile_final)//".eigvalr",&
                         status="replace",action="write")
-                        write(62) EigValTotALL
+                        write(62,*) EigValTotALL
                         close(62)
                 endif
         endif
