@@ -1,1 +1,0 @@
-mpifort -o get_moment main.f90 ran2.o $FLAG

@@ -1,0 +1,5 @@
+module purge
+module load intel/18.0 intel/ompi
+source ~/.bashrc
+mpifort -o get_moment main.f90 ran2.o $IFLAG
+mv get_moment ~/templates/get_moment
