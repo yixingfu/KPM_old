@@ -1,0 +1,7 @@
+3,6,20,0.,30,0  ! D,L,Nc,W,Rep,realization0
+.true., .true. ,.true. ! QP?, fixTwist?, Slow OPTCOND?
+2  !task: RHO=1, OPTCOND=2, 
+0,0,0  ! Twist( all 0 to 1)
+'testoutput' ! out file
+7 ! fiboN corresponding to L
+ 
