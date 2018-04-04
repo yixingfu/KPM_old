@@ -46,6 +46,9 @@
                 ! in the binary file we only need to record data needed
                 ! for reconstruction. Other information should be kept
                 ! in log file
+        if (ExactSpectrum .or. ExactStates) then
+                write(*,*) "Exact Diag"
+        else
 
                 open(15,file=trim(outputfile_final)//".dat",&
                         status="replace",&
@@ -59,15 +62,12 @@
                 write(16,*)"D=",D,",L=",L,",Nc=",Nc,",Rep=",Rep
                 write(16,*)"W=",W,",norm_a=",norm_a,",norm_b=",norm_b
                 close(16)
+        endif
 
                 else if (task.eq.OPTCOND) then
                         include "get_mu2d.f90"
 
                 ! save result
-        if (ExactSpectrum .or. ExactStates) then
-                write(*,*) "Exact Diag"
-                !outputfile_final = trim(outputfile)
-        else
                 rlz_id = REALIZATION0+my_id
                 write(outputfile_final,&
                         '(a,i4.4)')trim(outputfile)//"_",rlz_id
@@ -78,7 +78,6 @@
                 write(18) norm_a,norm_b
                 write(18) mu2d_avg,mu2d2_avg
                 close(18)
-        endif
                 open(19,file=trim(outputfile_final)//".log",&
                         status="replace")
                 write(19,*)"D=",D,",L=",L,",Nc=",Nc,",Rep=",Rep
