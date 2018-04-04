@@ -109,7 +109,7 @@
         if (ExactSpectrum) then
                 call MPI_REDUCE(EigValTot, EigValTotALL,EIGVALCOUNT, &
                         MPI_REAL,MPI_SUM,0,MPI_COMM_WORLD,ierr)
-                if (my_id .eq. 0) then
+                if (my_id .eq. (seq_rep*num_procs)) then
                         write(*,*) "SAVING EIGEN VALUES..."
                      open(62, file=trim(outputfile_final)//".eigval",&
                         status="replace",access="stream",action="write")
