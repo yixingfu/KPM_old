@@ -300,7 +300,9 @@
 !                close(62)
         endif
         if (ExactSpectrum) then
-                EigValTot = EigValTot + EigVal(1:EIGVALCOUNT)
+                STARTPOINT=(N-EIGVALCOUNT)/2
+                ENDPOINT = STARTPOINT+EIGVALCOUNT-1
+                EigValTot = EigValTot + EigVal(STARTPOINT:ENDPOINT)
                 write(*,*) EigValTot
 !                open(62,file=trim(outputfile_final)//".eigval",&
 !                        status="replace",access="stream",action="write")

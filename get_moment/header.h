@@ -55,6 +55,7 @@
 	complex*16,dimension(:),allocatable::work
 	real*8,dimension(:),allocatable::rwork,EigVal
 	integer,parameter::EIGVALCOUNT=10
+	integer::STARTPOINT,ENDPOINT
 	real*8,dimension(EIGVALCOUNT)::EigValTot,EigValTotALL
 	integer::lwork,info
 	character(1)::JOBZ
