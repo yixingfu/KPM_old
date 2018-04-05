@@ -112,14 +112,16 @@
                 if (my_id .eq. (seq_rep*num_procs)) then
                         write(*,*) "SAVING EIGEN VALUES..."
                      open(62, file=trim(outputfile_final)//".eigval",&
-                        status="replace",access="stream",action="write")
-                        write(62) N
+                        status="replace",form="unformatted",&
+        access="stream",action="write")
                         write(62) EigValTotALL
                         close(62)
-                     open(62, file=trim(outputfile_final)//".eigvalr",&
+
+        
+                     open(63, file=trim(outputfile_final)//".eigvalr",&
                         status="replace",action="write")
-                        write(62,*) EigValTotALL
-                        close(62)
+                        write(63,*) EigValTotALL
+                        close(63)
                 endif
         endif
 

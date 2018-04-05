@@ -15,7 +15,7 @@
         allocate(psi_j(N),psi_j_p(N),psi_j_pp(N))
         mu_tot = 0
         mu2_tot = 0
-        call ResetRandSeed()
+!        call ResetRandSeed()
         idum=-(my_id+1)*64
       randomtest1 = ran2(idum)
       randomtest2 = ran2(idum)
