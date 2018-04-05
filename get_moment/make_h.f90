@@ -243,24 +243,9 @@
         deallocate(eps)
 
       endif
-      ! normalization same for both
-        
-      call LanczosBound(N,NNZ,A,rp,col,1000,Emax,Emin)
-      norm_a = (Emax-Emin)/(2d0-0.2d0)
-      norm_b = (Emax+Emin)/2
-        call rescale_to_1(N,NNZ,A,rp,col,norm_a,norm_b)
-
-        
-        endif
-        if (SaveAll) then 
-                write(92) A
-                write(92) col
-                write(92) rp
-                write(92) norm_a
-                write(92) norm_b
-        endif
 
 
+! -------------------------EIGENVALUE
         if (ExactSpectrum .or. ExactStates) then
                 allocate(H_dense(N,N))
                 call Sparse2Dense(N,NNZ,A,rp,col,H_dense)
@@ -314,5 +299,20 @@
 
                 deallocate(H_dense)
         endif        
+! --------------------EIGEnVALUE end
+      ! normalization same for both
+        
+      call LanczosBound(N,NNZ,A,rp,col,1000,Emax,Emin)
+      norm_a = (Emax-Emin)/(2d0-0.2d0)
+      norm_b = (Emax+Emin)/2
+        call rescale_to_1(N,NNZ,A,rp,col,norm_a,norm_b)
 
-
+        
+        endif
+        if (SaveAll) then 
+                write(92) A
+                write(92) col
+                write(92) rp
+                write(92) norm_a
+                write(92) norm_b
+        endif
