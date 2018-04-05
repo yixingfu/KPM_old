@@ -1,5 +1,5 @@
 ! Created=Tue 12 Dec 2017 03:28:22 PM STD
-! Last Modified=Wed 04 Apr 2018 03:50:42 PM EDT
+! Last Modified=Wed 04 Apr 2018 08:26:21 PM EDT
       !This file creates H
       !The matrix is stored as CSR(A,col,rp)
       !
@@ -301,6 +301,7 @@
         endif
         if (ExactSpectrum) then
                 EigValTot = EigValTot + EigVal(1:EIGVALCOUNT)
+                write(*,*) EigValTot
 !                open(62,file=trim(outputfile_final)//".eigval",&
 !                        status="replace",access="stream",action="write")
 !                write(62) N

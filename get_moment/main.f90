@@ -1,5 +1,5 @@
 ! Created=Tue 12 Dec 2017 02:59:28 PM STD
-! Last Modified=Wed 04 Apr 2018 03:56:41 PM EDT
+! Last Modified=Wed 04 Apr 2018 08:25:00 PM EDT
         program main
                 use lapack95
                 use f95_precision
@@ -108,7 +108,7 @@
 
         if (ExactSpectrum) then
                 call MPI_REDUCE(EigValTot, EigValTotALL,EIGVALCOUNT, &
-                        MPI_REAL,MPI_SUM,0,MPI_COMM_WORLD,ierr)
+             MPI_DOUBLE_PRECISION,MPI_SUM,0,MPI_COMM_WORLD,ierr)
                 if (my_id .eq. (seq_rep*num_procs)) then
                         write(*,*) "SAVING EIGEN VALUES..."
                      open(62, file=trim(outputfile_final)//".eigval",&
