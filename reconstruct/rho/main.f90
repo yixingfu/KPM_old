@@ -1,5 +1,5 @@
 ! Created=Wed 13 Dec 2017 01:47:49 PM STD
-! Last Modified=Sun 25 Mar 2018 01:08:07 PM EDT
+! Last Modified=Thu 05 Apr 2018 02:38:34 PM EDT
 
       program main
               implicit none
@@ -45,9 +45,9 @@
              write(outputfile,'(a,i6.6)')trim(outputfile),ForceNc
               open(13,file=trim(outputfile)//".dat",status="replace",&
                       form="unformatted",access="stream")
-              write(13)RLZmax+1-RLZmin,Ntilde,Egrid,rho_tot
+              write(13)RLZmax+1-RLZmin,Ntilde,Egrid,rho_tot,rho2_tot
               close(13)
-                deallocate(Egrid,rho_tot)
+                deallocate(Egrid,rho_tot,rho2_tot)
               contains 
                       include "Chebyshev.f90"
       End program main

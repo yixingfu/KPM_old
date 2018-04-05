@@ -1,5 +1,5 @@
 !Created=Wed 13 Dec 2017 01:48:29 PM STD
-!Last Modified=Sun 25 Mar 2018 01:08:16 PM EDT
+!Last Modified=Thu 05 Apr 2018 02:37:32 PM EDT
 	character(200)::inputfile 
 	character(200)::outputfile
 	character(200)::arg_tmp
@@ -17,7 +17,7 @@
 	! rho calculation
 	integer::Ntilde
 	real*8::Ei,rhoi
-	real*8,dimension(:),allocatable::Egrid,rho,rho_tot,Egrid_t
+	real*8,dimension(:),allocatable::Egrid,rho,rho_tot,Egrid_t,rho2_tot
 
 	
 	! Jackson Kernel

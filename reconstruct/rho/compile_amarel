@@ -1,0 +1,2 @@
+gfortran -o main main.f90
+mv main ~/bin/get_rho

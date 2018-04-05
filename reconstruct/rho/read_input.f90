@@ -1,5 +1,5 @@
 !Created=Wed 13 Dec 2017 01:56:55 PM STD
-!Last Modified=Wed 28 Mar 2018 03:18:22 PM EDT
+!Last Modified=Thu 05 Apr 2018 02:38:06 PM EDT
 
         write(inputfile,'(a,i4.4)')trim(outputfile)//'_',k
       open(11,file=trim(inputfile)//".dat",status="old",access="stream")
@@ -18,8 +18,10 @@
 
       if (k.eq.RLZmin) then
               ! prepare grid
-              allocate(Egrid(1:Ntilde),rho_tot(1:Ntilde))
+              allocate(Egrid(1:Ntilde),rho_tot(1:Ntilde), &
+                                rho2_tot(1:Ntilde))
               rho_tot = 0
+              rho2_tot= 0
       ! This is the same for all. 
       do i=1,Ntilde
               Egrid(i) = i/real(Ntilde)*2d0*outputEmax-outputEmax

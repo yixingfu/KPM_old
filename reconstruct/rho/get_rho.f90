@@ -1,5 +1,5 @@
 ! Created=Wed 13 Dec 2017 03:05:25 PM STD
-! Last Modified=Wed 28 Mar 2018 02:17:02 PM EDT
+! Last Modified=Thu 05 Apr 2018 02:35:07 PM EDT
       ! 
       allocate(rho(1:Ntilde))
       ! it need to be scaled here, and scaled back later
@@ -37,6 +37,7 @@
     
       endif
       rho_tot = rho_tot+(rho)
+      rho2_tot = rho_tot+rho*rho
       deallocate(rho,Egrid_t)
       deallocate(mu_avg,mu2_avg)! no longer used
 
