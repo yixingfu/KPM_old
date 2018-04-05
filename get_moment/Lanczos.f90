@@ -171,5 +171,3 @@
 
                 return
         End subroutine LanczosBound
-
-                       
