@@ -274,6 +274,11 @@
         if (info.ne.0) then
         write(*,*)"something wrong, exact diag "
         endif
+        ! compare with new Lanzcos
+!        call LanczosLowest(N,NNZ,A,rp,col,&
+!                      1000*EIGVALCOUNT,EIGVALCOUNT,EigValLanc)
+        ! empirical: 1.5*eigvalcount should be enough
+        ! come back later. Not resolving the lowest ones
                 deallocate(work,rwork)
  
         if (ExactStates) then
@@ -288,7 +293,11 @@
                 STARTPOINT=(N-EIGVALCOUNT)/2
                 ENDPOINT = STARTPOINT+EIGVALCOUNT-1
                 EigValTot = EigValTot + EigVal(STARTPOINT:ENDPOINT)
-                write(*,*) EigValTot
+                EigValLancTot = EigValLancTot + EigValLanc
+        do i_tmp=1,EIGVALCOUNT
+                write(*,*) EigValTot(i_tmp),'vs',EigValLancTot(i_tmp),&
+                        '@',my_id
+        enddo
 !                open(62,file=trim(outputfile_final)//".eigval",&
 !                        status="replace",access="stream",action="write")
 !                write(62) N

@@ -11,3 +11,4 @@
 
 
         EigValTot = 0
+        EigValLancTot = 0
