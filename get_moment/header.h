@@ -54,7 +54,7 @@
 	complex*16,dimension(:,:),allocatable::H_dense
 	complex*16,dimension(:),allocatable::work
 	real*8,dimension(:),allocatable::rwork,EigVal
-	integer,parameter::EIGVALCOUNT=10
+	integer,parameter::EIGVALCOUNT=40
 	integer::STARTPOINT,ENDPOINT,i_tmp
 	real*8,dimension(EIGVALCOUNT)::EigValTot,EigValTotALL
 	real*8,dimension(EIGVALCOUNT)::EigValLanc,EigValLancTot
