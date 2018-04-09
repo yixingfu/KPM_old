@@ -84,8 +84,9 @@
                         ! get phiL2 from phiL1
                         ! |phiLj+1>=H|phiLj>-a(j)|phiLj>-b(j-1)|phiLj-1>
                         call CSRmultVc16(N,NNZ,A,rp,col,phiL1,phiL2)
+                        phiL2 = phiL2 - beta(j)*phiL0
                         alpha(j+1) = dot_product(phiL1,phiL2)
-                        phiL2 = phiL2 - alpha(j+1)*phiL1 - beta(j)*phiL0
+                        phiL2 = phiL2 - alpha(j+1)*phiL1
                         ! and normalize
                         normL = dot_product(phiL2,phiL2)
                         normL = dsqrt(normL)
@@ -212,6 +213,7 @@
 
                 ! misc
                 integer::ierr
+                real*8,parameter::NEG_LARGE=1d7
 
                 ! test positive
                 complex*16,dimension(N)::ev,Hev,aLev
@@ -245,6 +247,7 @@
                 ! phiL1 = H|phiL0>-<phiL0|phiL1>|phiL0>
                 call CSRmultVc16(N,NNZ,A,rp,col,phiL0,phiLtmp)
                 call CSRmultVc16(N,NNZ,A,rp,col,phiLtmp,phiL1)
+                phiL1 = phiL1 - NEG_LARGE ! negative and large on A^2
                 alpha(1) = dot_product(phiL0,phiL1)
                 phiL1 = phiL1 - alpha(1)*phiL0
                 ! and normalize
@@ -268,8 +271,10 @@
                         ! |phiLj+1>=H|phiLj>-a(j)|phiLj>-b(j-1)|phiLj-1>
                         call CSRmultVc16(N,NNZ,A,rp,col,phiL1,phiLtmp)
                         call CSRmultVc16(N,NNZ,A,rp,col,phiLtmp,phiL2)
+                        phiL2 = phiL2 - NEG_LARGE
+                        phiL2 = phiL2 - beta(j)*phiL0
                         alpha(j+1) = dot_product(phiL1,phiL2)
-                        phiL2 = phiL2 - alpha(j+1)*phiL1 - beta(j)*phiL0
+                        phiL2 = phiL2 - alpha(j+1)*phiL1
                         ! and normalize
                         normL = dot_product(phiL2,phiL2)
                         normL = dsqrt(normL)
@@ -331,6 +336,7 @@
                 if (info .ne. 0) then
                         write(*,*)"wrong: diag L subspace"
                 endif
+                wL = wL + NEG_LARGE ! undo neg large
 
                         ! assign minimum to EminTEMP
                         EminL = minval(wL)
