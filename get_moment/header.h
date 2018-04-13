@@ -10,6 +10,7 @@
 	integer::fiboN
 	integer::REALIZATION0
 	character(200)::arg_tmp
+	real*8,dimension(2)::inputPhase
 
 	! Options
 	Logical::QP
@@ -17,6 +18,7 @@
 	Logical::fixedTwist
 	Logical::Inherit,SaveAll
 	Logical::ExactSpectrum,ExactStates
+	Logical::RandPhase
 
 	! Matrix dimensions
 	integer*8::N, NNZ, JNNZ
@@ -54,7 +56,7 @@
 	complex*16,dimension(:,:),allocatable::H_dense
 	complex*16,dimension(:),allocatable::work
 	real*8,dimension(:),allocatable::rwork,EigVal
-	integer,parameter::EIGVALCOUNT=40
+	integer,parameter::EIGVALCOUNT=3000
 	integer::STARTPOINT,ENDPOINT,i_tmp
 	real*8,dimension(EIGVALCOUNT)::EigValTot,EigValTotALL
 	real*8,dimension(EIGVALCOUNT)::EigValLanc,EigValLancTot

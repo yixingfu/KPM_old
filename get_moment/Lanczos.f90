@@ -203,7 +203,7 @@
                 complex*16,dimension(N,Lmax+1)::phiLall
                 real*8,dimension(N)::phiL0_r1,phiL0_r2
                 real*8::normL
-                complex*16,dimension(Lmax+1)::alpha, beta
+                complex*16,dimension(Lmax+2)::alpha, beta
                         ! note: they are real. 
                 ! Diagonalizing 
                 complex*16,dimension(:,:),allocatable::aL,aL_save
@@ -213,7 +213,7 @@
 
                 ! misc
                 integer::ierr
-                real*8,parameter::NEG_LARGE=1d7
+                real*8,parameter::NEG_LARGE=100d0
 
                 ! test positive
                 complex*16,dimension(N)::ev,Hev,aLev
@@ -231,7 +231,7 @@
                 Eall = 0
 
 
-
+                phiLall = 0
                 ! First generate random vector and normalize
                 call random_number(phiL0_r1)
                 call random_number(phiL0_r2)
@@ -245,9 +245,10 @@
 
                 ! Then generate phiL1
                 ! phiL1 = H|phiL0>-<phiL0|phiL1>|phiL0>
+                phiLtmp = 0
                 call CSRmultVc16(N,NNZ,A,rp,col,phiL0,phiLtmp)
                 call CSRmultVc16(N,NNZ,A,rp,col,phiLtmp,phiL1)
-                phiL1 = phiL1 - NEG_LARGE ! negative and large on A^2
+                phiL1 = phiL1 - NEG_LARGE*phiL0 ! negative and large on A^2
                 alpha(1) = dot_product(phiL0,phiL1)
                 phiL1 = phiL1 - alpha(1)*phiL0
                 ! and normalize
@@ -269,9 +270,10 @@
                 do j = 1,Lmax
                         ! get phiL2 from phiL1
                         ! |phiLj+1>=H|phiLj>-a(j)|phiLj>-b(j-1)|phiLj-1>
+                        phiLtmp = 0
                         call CSRmultVc16(N,NNZ,A,rp,col,phiL1,phiLtmp)
                         call CSRmultVc16(N,NNZ,A,rp,col,phiLtmp,phiL2)
-                        phiL2 = phiL2 - NEG_LARGE
+                        phiL2 = phiL2 - NEG_LARGE*phiL1
                         phiL2 = phiL2 - beta(j)*phiL0
                         alpha(j+1) = dot_product(phiL1,phiL2)
                         phiL2 = phiL2 - alpha(j+1)*phiL1
@@ -306,7 +308,7 @@
                         do i=1,j+1
                         ! for every dimension in Lanczos up to j+1,
                         ! diagonal term is alpha
-                                aL(i,i)=(alpha(i))
+                                aL(i,i)=(alpha(i))! + NEG_LARGE
                         End do
 
                         do i=1,j
@@ -317,6 +319,7 @@
                                                    ! only upper triangle used,
                         End do
                         aL_save = aL
+                        
                         
 
                         ! now aL is H corresponding to Lanczos subspace.
@@ -347,9 +350,9 @@
                 do ie=1,NE
                         ev = matmul(phiLall(:,1:j+1),aL(1:j+1,ie))
                         write(*,*) "check eig"
-                        aLev = matmul(aL_save,aL(1:j+1,ie))
-                        write(*,*) real(aL(1:3,ie)/aLev(1:3))
-                        write(*,*) imag(aL(1:3,ie)/aLev(1:3))
+!                        aLev(1:j+1) = matmul(aL_save(1:j+1,1:j+1),aL(1:j+1,ie))
+!                        write(*,*) real(aL(1:3,ie)/aLev(1:3))
+!                        write(*,*) imag(aL(1:3,ie)/aLev(1:3))
                         !colomn is ev in aL
                         !the 1:j+1 dimension of phiLall
                         !contract with the vector size
@@ -359,8 +362,7 @@
                         if (pos_test .lt. 0) then
                                 Eall(ie) = 0d0-Eall(ie)
                         endif
-                write(*,*)real(ev(1:3)/Hev(1:3))
-                write(*,*)imag(ev(1:3)/Hev(1:3))
+                write(*,*)abs(ev(1:3)/Hev(1:3))
                         write(*,*)Eall(ie),'@',pos_test,'step',j
                 enddo
 
@@ -375,7 +377,7 @@
                                 Emin=EminL
                                 Emax=EmaxL
                                 write(*,*)"Good convergence" ,Emin,Emax
-                                goto 2223
+!                                goto 2229
                         end if
                         ! if not, still update
                         EminTEMP = EminL
@@ -388,7 +390,7 @@
                 Emax = EmaxTEMP
                        write(*,*)'Not good convergence', Emin,Emax, Eall
 
-2223    continue
+2229    continue
 
                 return
         End subroutine LanczosLowest

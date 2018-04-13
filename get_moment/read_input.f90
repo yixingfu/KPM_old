@@ -11,6 +11,7 @@
         read(11,*) outputfile
         read(11,*) Inherit, SaveAll
         read(11,*) ExactSpectrum, ExactStates
+        read(11,*) RandPhase, inputPhase
         close(11)
         
         if (QP) then

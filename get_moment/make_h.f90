@@ -60,7 +60,12 @@
               if (QP) then
                       Wrnd = 0d0
                       WQP = W
+                if (RandPhase) then
                       call random_number(phase)
+                else 
+                      phase = inputPhase
+                endif
+
                       phase = phase*2d0*pi
                       P = 2.0d0*pi*fibonacci(fiboN-2)/fibonacci(fiboN)
                       Q = P

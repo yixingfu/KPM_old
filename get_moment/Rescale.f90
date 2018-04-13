@@ -14,7 +14,7 @@
                         A(rp(i)) = A(rp(i))-norm_b
                 enddo
                 A = A/norm_a
-                write(*,*)norm_a,norm_b
+                write(*,*)'normalization factors:',norm_a,norm_b
 !        do i=1,N
 !                do j=rp(i),rp(i+1)-1
 !        write(*,*)i,',',col(j),',',real(A(j)),',',imag(A(j))
