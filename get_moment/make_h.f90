@@ -67,7 +67,7 @@
                 endif
 
                       phase = phase*2d0*pi
-                      P = 2.0d0*pi*fibonacci(fiboN-2)/fibonacci(fiboN)
+                      P = 2.0d0*pi*fibonacci(fiboN-fiboM)/fibonacci(fiboN)
                       Q = P
               else 
                       WQP = 0d0
