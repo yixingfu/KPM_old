@@ -7,7 +7,8 @@
 	integer::task,RandType
 	character(200)::outputfile
 	character(200)::outputfile_final
-	integer::fiboN,fiboM ! fiboN is for L, fiboM is for F_{n-m}/L
+	integer::fiboN,fiboM,commC! fiboN is for L, fiboM is for F_{n-m}/L
+	real*8::setQ
 	integer::REALIZATION0
 	character(200)::arg_tmp
 	real*8,dimension(2)::inputPhase

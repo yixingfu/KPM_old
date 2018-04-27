@@ -154,7 +154,7 @@
                             (dabs(EmaxTEMP-EmaxL) .lt. rel_error)) then 
                                 Emin=EminL
                                 Emax=EmaxL
-                                write(*,*)"Good convergence" ,Emin,Emax
+!                                write(*,*)"Good convergence" ,Emin,Emax
                                 goto 2223
                         end if
                         ! if not, still update
@@ -166,7 +166,7 @@
                 End do
                 Emin = EminTEMP
                 Emax = EmaxTEMP
-                       write(*,*)'not good convergence', Emin,Emax
+!                       write(*,*)'not good convergence', Emin,Emax
 
 2223    continue
 
@@ -349,7 +349,7 @@
                 Eall = wL(1:NE)
                 do ie=1,NE
                         ev = matmul(phiLall(:,1:j+1),aL(1:j+1,ie))
-                        write(*,*) "check eig"
+!                        write(*,*) "check eig"
 !                        aLev(1:j+1) = matmul(aL_save(1:j+1,1:j+1),aL(1:j+1,ie))
 !                        write(*,*) real(aL(1:3,ie)/aLev(1:3))
 !                        write(*,*) imag(aL(1:3,ie)/aLev(1:3))

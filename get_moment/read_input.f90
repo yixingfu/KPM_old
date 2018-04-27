@@ -12,7 +12,7 @@
         read(11,*) Inherit, SaveAll
         read(11,*) ExactSpectrum, ExactStates
         read(11,*) RandPhase, inputPhase
-        read(11,*) fiboM
+        read(11,*) fiboM,commC,setQ
         close(11)
         
         if (QP) then

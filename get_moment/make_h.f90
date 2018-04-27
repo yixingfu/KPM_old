@@ -55,7 +55,7 @@
 !        write(*,*)'txf',txf
 
       if (D.eq.2) then
-              write(*,*) "2D"
+!              write(*,*) "2D"
               phase = 0
               if (QP) then
                       Wrnd = 0d0
@@ -67,8 +67,20 @@
                 endif
 
                       phase = phase*2d0*pi
-                      P = 2.0d0*pi*fibonacci(fiboN-fiboM)/fibonacci(fiboN)
+                  P = 2.0d0*pi*fibonacci(fiboN-fiboM)/fibonacci(fiboN)
                       Q = P
+                        if (commC .ne. 0) then
+                        ! if set commensurate C, then Q=P=2pi/C
+                                P=2.0d0*pi/commC
+                                Q=P
+                        endif
+
+                        ! offset Q
+                        P = P + setQ
+                        Q = P
+
+
+                write(*,*)"Q=" , Q,"; M=",fiboM
               else 
                       WQP = 0d0
                       Wrnd = W
