@@ -18,6 +18,7 @@
 	integer::Ntilde
 	real*8::Ei,rhoi
 	real*8,dimension(:),allocatable::Egrid,rho,rho_tot,Egrid_t,rho2_tot
+	real*8,dimension(:),allocatable::rho_tot_collect,rho2_tot_collect
 
 	
 	! Jackson Kernel
@@ -31,4 +32,11 @@
 
 	! index
 	integer*8::i8,j8,k8
-	integer::i,j,k
+	integer::i,j,k,k_base
+
+	! MPI
+	integer::status,ierr,num_procs,my_id
+	integer,parameter::twist_tag=2002
+	integer::ios
+	integer::N_rlz_actual,N_rlz_collect
+

@@ -13,7 +13,7 @@
          if (ierr .ne. 0) then 
                 badfiles = badfiles+1
                 close(11)
-                continue
+                cycle
         endif
         write(*,*)"Done reading"
       Ntilde = 2*Nc

@@ -13,6 +13,5 @@
       do i = 0,ForceNc-1
               gJ(i) = ((ForceNc-i+1)*dcos(a_*i)+dsin(a_*i)/dtan(a_)) &
                       /(ForceNc+1)
-        write(*,*) gJ(i)
       End do
 

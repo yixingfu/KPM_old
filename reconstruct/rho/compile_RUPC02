@@ -1,2 +1,5 @@
-gfortran -o main main.f90
-mv main ~/templates/get_rho
+module purge
+module load intel/18.0 intel/ompi
+source ~/.bashrc
+mpifort -o main main_parallel.f90
+mv main ~/templates/get_rho_parallel
