@@ -1,0 +1,28 @@
+
+#### Last Modified=Wed 04 Apr 2018 03:36:16 PM EDT
+rm *.in
+for W in $(seq 0.25 0.05 0.95); do
+for Qoff in $(seq -0.018 0.002 -0.002) $(seq -0.04 0.004 -0.02) $(seq -0.08 0.008 -0.048) $(seq -0.10 0.01 -0.09) $(seq -0.20 0.02 -0.012) $(seq -0.40 0.04 -0.24) $(seq -0.90 0.08 -0.48); do
+###for Qoff in $(seq 0.001 0.001 0.009) $(seq 0.01 0.002 0.02) $(seq 0.024 0.004 0.04) $(seq 0.048 0.008 0.08) $(seq 0.09 0.01 0.1) $(seq 0.12 0.02 0.2) $(seq 0.24 0.04 0.48);do
+echo $Qoff
+#for Tx in $(seq -1. 0.01 1); do
+export Tx=1.0
+export Ty=1.0
+export Tz=1.0
+export Nc=4096
+export M=4
+export C=0
+#####export Qoff=0
+export FileName=W$W\_Nc$Nc\_M$M\_Qoff$(printf %6.4f $Qoff)
+echo "2,10,$Nc,$W,20, 0" >> batch$FileName.in ### D,L for nonQP or fiboN for QP,Nc,W,Rep,RLZ0
+echo ".true., .false., .false. " >> batch$FileName.in ### QP?, fixTwist?, Slow OPTCOND?
+echo "1, 1 " >> batch$FileName.in ### RHO=1,OPTCOND=2,RHODER=3; RandPOT=1,RandHOP=2
+echo "$Tx,$Ty,$Tz " >> batch$FileName.in ### Twist(-1 to 1), correspond to -pi to pi
+echo "'$FileName'">>batch$FileName.in ###out file(mark disorder)
+echo ".false.,.false.">>batch$FileName.in ###Inherit,SaveAll
+echo ".false.,.false.">>batch$FileName.in ###Exact Spectrum; Exact Eigen States
+echo ".true.,1.,1.">>batch$FileName.in ### Random phase (for QP); given phase (-1 to 1) if random phase is false
+echo "$M,$C,$Qoff">>batch$FileName.in ### Q=2pi F_{n-m}/L, this number is the m
+#done
+done
+done
