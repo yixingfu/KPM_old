@@ -1,5 +1,5 @@
 ! Created=Tue 12 Dec 2017 03:19:48 PM STD
-! Last Modified=Tue 03 Apr 2018 10:00:02 PM EDT
+! Last Modified=Thu 10 May 2018 03:05:35 PM DST
         ! read inputfile name from command line
         call getarg(1,inputfile)
         ! read inputs D,L,Nc,W,QP?, from input file
@@ -14,10 +14,10 @@
         read(11,*) RandPhase, inputPhase
         read(11,*) fiboM,commC,setQ
         close(11)
-        
+
         if (QP) then
-                fiboN = L
-                L = fibonacci(fiboN)
+            fiboN = L
+            L = fibonacci(fiboN)
         endif
 
 !         check

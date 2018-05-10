@@ -1,5 +1,5 @@
 ! Created =Tue 12 Dec 2017 03:10:19 PM STD
-! Last Modified=Wed 04 Apr 2018 03:44:24 PM EDT
+! Last Modified=Thu 10 May 2018 03:05:35 PM DST
 ! 
 
       ! This file prepares a few derived parameters from input file
@@ -10,5 +10,5 @@
 !      write(*,*)D,N,L,NNZ
 
 
-        EigValTot = 0
-        EigValLancTot = 0
+      EigValTot = 0
+      EigValLancTot = 0
