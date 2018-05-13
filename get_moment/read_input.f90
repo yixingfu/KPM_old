@@ -1,5 +1,5 @@
 ! Created=Tue 12 Dec 2017 03:19:48 PM STD
-! Last Modified=Thu 10 May 2018 03:05:35 PM DST
+! Last Modified=Sun 13 May 2018 04:59:37 PM DST
         ! read inputfile name from command line
         call getarg(1,inputfile)
         ! read inputs D,L,Nc,W,QP?, from input file
@@ -13,6 +13,7 @@
         read(11,*) ExactSpectrum, ExactStates
         read(11,*) RandPhase, inputPhase
         read(11,*) fiboM,commC,setQ
+        read(11,*) BHZ,BHZ_SPIN,BHZ_M
         close(11)
 
         if (QP) then
