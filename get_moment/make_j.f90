@@ -1,5 +1,5 @@
 ! Created=Wed 13 Dec 2017 11:51:36 PM STD
-! Last Modified=Thu 10 May 2018 03:02:41 PM DST
+! Last Modified=Sun 13 May 2018 05:16:36 PM DST
       ! This file makes J operator
 
       if (D.eq.2) then
@@ -26,18 +26,14 @@
           ! x_forward
           ind_r = xyzs2i(modulo(i-2,L)+1,j,k,s_,L)
           Jcol(col_ind) = ind_r
-          JA(col_ind) = Jtxf(s)
+          JA(col_ind) = Jtxf(s,s_)
           col_ind = col_ind+1
-!        write(*,*) rp_ind-1,',',Jcol(col_ind-1),&
-!        ',',real(JA(col_ind-1)),',',imag(JA(col_ind-1))
 
           ! x backward
           ind_r = xyzs2i(modulo(i,L)+1,j,k,s_,L)
           Jcol(col_ind) = ind_r
-          JA(col_ind) = Jtxb(s)
+          JA(col_ind) = Jtxb(s,s_)
           col_ind = col_ind+1
-!        write(*,*) rp_ind-1,',',Jcol(col_ind-1),&
-!        ',',real(JA(col_ind-1)),',',imag(JA(col_ind-1))
 
           End do
           End do
