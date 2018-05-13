@@ -1,10 +1,13 @@
 ! Created=Wed 13 Dec 2017 11:51:36 PM STD
-! Last Modified=Sun 13 May 2018 05:16:36 PM DST
+! Last Modified=Sun 13 May 2018 05:27:06 PM DST
       ! This file makes J operator
 
       if (D.eq.2) then
           write(*,*) "J not implemented for 2D"
       else if (D.eq.3) then
+          if (BHZ) then
+              write(*,*) "BHZ 3D not defined!!!"
+          endif
           ! not differentiating QP or not
           write(*,*) "3D,J"
           Jrp = 0
