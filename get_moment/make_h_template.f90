@@ -1,13 +1,16 @@
-! Created=Tue 12 Dec 2017 03:28:22 PM STD
-! Last Modified=Sun 13 May 2018 04:41:04 PM DST
+! Saved=Fri 11 May 2018 11:31:55 AM DST
+! Last Modified=Fri 11 May 2018 11:32:03 AM DST
       !This file creates H
       !The matrix is stored as CSR(A,col,rp)
       !
 
+      !call sleep(my_id*3)
       allocate(A(NNZ),col(NNZ),rp(N+1))
       if (fixedTwist) then
           Twist = OrigTwist*pi/real(L)
       else
+
+
 
           allocate(TwistAll(num_procs*3*seq_rep))
           call random_number(TwistAll)
@@ -15,24 +18,19 @@
           write(*,*) 'twist:',Twist
           deallocate(TwistAll)
 
+
+
           Twist = (Twist)*pi/L! 0 to pi??
       endif
 
-      ! BHZ Definitions
+      expTwist = cdexp(III*Twist)
 
-
-      ! Add Twist
       txf = xf*cdexp(dcmplx(0d0,Twist(1)))
       txb = xb*cdexp(dcmplx(0d0,-Twist(1)))
       tyf = yf*cdexp(dcmplx(0d0,Twist(2)))
       tyb = yb*cdexp(dcmplx(0d0,-Twist(2)))
       tzf = zf*cdexp(dcmplx(0d0,Twist(3)))
       tzb = zb*cdexp(dcmplx(0d0,-Twist(3)))
-
-
-      
-
-
 
       if (D.eq.2) then
           phase = 0
