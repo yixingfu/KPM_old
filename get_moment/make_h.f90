@@ -1,40 +1,54 @@
 ! Created=Tue 12 Dec 2017 03:28:22 PM STD
+<<<<<<< HEAD
 ! Last Modified=Sun 13 May 2018 05:08:09 PM DST
+=======
+! Last Modified=Thu 10 May 2018 03:00:07 PM DST
+>>>>>>> parent of dd36dba... comments
       !This file creates H
       !The matrix is stored as CSR(A,col,rp)
       !
 
+      !call sleep(my_id*3)
       allocate(A(NNZ),col(NNZ),rp(N+1))
       if (fixedTwist) then
           Twist = OrigTwist*pi/real(L)
+!                write(*,*) 'twist:',Twist
       else
+<<<<<<< HEAD
           ! avoid aliasing
+=======
+
+
+
+>>>>>>> parent of dd36dba... comments
           allocate(TwistAll(num_procs*3*seq_rep))
           call random_number(TwistAll)
+!                write(*,*) 'proc',my_id
           Twist=TwistAll(my_id*3+1:my_id*3+3)
           write(*,*) 'twist:',Twist
           deallocate(TwistAll)
 
+
+
           Twist = (Twist)*pi/L! 0 to pi??
       endif
 
-      ! BHZ Definitions
+      expTwist = cdexp(III*Twist)
 
-
-      ! Add Twist
       txf = xf*cdexp(dcmplx(0d0,Twist(1)))
       txb = xb*cdexp(dcmplx(0d0,-Twist(1)))
       tyf = yf*cdexp(dcmplx(0d0,Twist(2)))
       tyb = yb*cdexp(dcmplx(0d0,-Twist(2)))
       tzf = zf*cdexp(dcmplx(0d0,Twist(3)))
       tzb = zb*cdexp(dcmplx(0d0,-Twist(3)))
-
-
-      
-
-
+!        write(*,*)'xf',xf(0)
+!        write(*,*)'twist',Twist(1)
+!        write(*,*)'exptwist',expTwist(1)
+!        write(*,*)'mult',xf(0)*expTwist(1)
+!        write(*,*)'txf',txf
 
       if (D.eq.2) then
+!              write(*,*) "2D"
           phase = 0
           if (QP) then
               Wrnd = 0d0
@@ -179,30 +193,40 @@
           rp_ind = rp_ind+1
           A(col_ind) = eps(eps_ind)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           ! x forward
           ind_r = xyzs2i(modulo(i-2,L)+1,j,k,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = txf(s,s_)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           ! x backward
           ind_r = xyzs2i(modulo(i,L)+1,j,k,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = txb(s,s_)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           ! y forward
           ind_r = xyzs2i(i,modulo(j-2,L)+1,k,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = tyf(s,s_)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           ! y backward
           ind_r = xyzs2i(i,modulo(j,L)+1,k,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = tyb(s,s_)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           ! caution! z has s->s, not s->s_
           ! z forward
@@ -210,12 +234,16 @@
           col(col_ind) = ind_r
           A(col_ind) = tzf(s,s)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           ! z backward
           ind_r = xyzs2i(i,j,modulo(k,L)+1,s,L)
           col(col_ind) = ind_r
           A(col_ind) = tzb(s,s)
           col_ind = col_ind+1
+!        write(*,*) rp_ind-1,',',col(col_ind-1),&
+!        ',',real(A(col_ind-1)),',',imag(A(col_ind-1))
 
           End do
           eps_ind = eps_ind + 1

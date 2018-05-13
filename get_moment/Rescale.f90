@@ -15,12 +15,12 @@
           enddo
           A = A/norm_a
           write(*,*)'normalization factors:',norm_a,norm_b
-!        do i=1,N
-!                do j=rp(i),rp(i+1)-1
-!        write(*,*)i,',',col(j),',',real(A(j)),',',imag(A(j))
-!
-!                enddo
-!        enddo
+        do i=1,N
+                do j=rp(i),rp(i+1)-1
+        write(*,*)i,',',col(j),',',real(A(j)),',',imag(A(j))
+
+                enddo
+        enddo
 
           return
       end subroutine rescale_to_1

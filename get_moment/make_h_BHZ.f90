@@ -21,7 +21,9 @@
 
           Twist = (Twist)*pi/L! 0 to pi??
       endif
-
+        if (my_id.eq.0) then
+        write(*,*)"MARK 1"
+        endif
       ! BHZ Definitions
 
 
@@ -115,8 +117,8 @@
           rp(rp_ind) = 9*rp_ind-8
           col(col_ind) = rp_ind
           rp_ind = rp_ind+1
-          A(col_ind) = eps(eps_ind) & ! Plus BHZ term
-              + (BHZ_M-2d0)*pauli_z(s,s)
+          A(col_ind) = eps(eps_ind) !& ! Plus BHZ term
+!              + (BHZ_M-2d0)*pauli_z(s,s)
           col_ind = col_ind+1
 
           ! x forward
@@ -186,12 +188,7 @@
           rp_ind = 1
           allocate(eps(L*L*L))
           eps = 0
-!                call ResetRandSeed(my_id*7)
-!                call random_number(eps)
-!                eps = W*2.0d0*(eps-0.5d0)
-!                idum=-my_id*17
           call random3D(eps,W,my_id)
-!                write(*,*)eps
           eps_ind = 1
           do k=1,L!z
           do j=1,L!y 
@@ -252,6 +249,9 @@
 
       endif
 
+        if (my_id.eq.0) then
+        write(*,*)"MARK 2"
+        endif
 
 ! -------------------------EIGENVALUE
       include "get_eigenvalue.f90"
@@ -262,6 +262,9 @@
       call LanczosBound(N,NNZ,A,rp,col,1000,Emax,Emin)
       norm_a = (Emax-Emin)/(2d0-0.2d0)
       norm_b = (Emax+Emin)/2
+        if (my_id.eq.0) then
+        write(*,*)"MARK 3"
+        endif
       call rescale_to_1(N,NNZ,A,rp,col,norm_a,norm_b)
 
 

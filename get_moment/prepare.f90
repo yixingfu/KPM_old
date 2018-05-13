@@ -5,9 +5,9 @@
       ! This file prepares a few derived parameters from input file
       N = 2*(L**D)
       NNZ = (1+2*D)*N ! fwd & bwd each site per dim + disorder
-        if (BHZ) then
+!        if (BHZ) then --- for BHZ 
             NNZ = (1+4*D)*N ! cross spin term and same spin term
-        endif
+!        endif
 
       JNNZ = (2)*N ! fwd & bwd each site @ x
 !      write(*,*)D,N,L,NNZ
