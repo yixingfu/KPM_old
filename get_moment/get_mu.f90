@@ -11,9 +11,9 @@
       mu2_tot = 0
 !        call ResetRandSeed()
       idum=-(my_id+1)*64
-      randomtest1 = ran2(idum)
-      randomtest2 = ran2(idum)
-      write(*,*) randomtest1,randomtest2
+!      randomtest1 = ran2(idum)
+!      randomtest2 = ran2(idum)
+!      write(*,*) randomtest1,randomtest2
 
       do i=1,Rep
       ! for each repetition

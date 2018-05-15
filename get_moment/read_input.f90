@@ -13,6 +13,7 @@
         read(11,*) ExactSpectrum, ExactStates
         read(11,*) RandPhase, inputPhase
         read(11,*) fiboM,commC,setQ
+        read(11,*) BHZ,BHZ_SPIN,BHZ_M
         close(11)
 
         if (QP) then

@@ -12,9 +12,11 @@
 	integer::REALIZATION0
 	character(200)::arg_tmp
 	real*8,dimension(2)::inputPhase
+	real*8::BHZ_M
+	integer::BHZ_SPIN
 
 	! Options
-	Logical::QP
+	Logical::QP, BHZ
 	Logical::slowOPTCOND
 	Logical::fixedTwist
 	Logical::Inherit,SaveAll
@@ -109,9 +111,9 @@
 
 	! parameters not in the form of parameter
 	complex*16,dimension(0:1,0:1)::pauli_x,pauli_y,pauli_z
-	complex*16,dimension(0:1)::xf,xb,yf,yb,zf,zb
-	complex*16,dimension(0:1)::txf,txb,tyf,tyb,tzf,tzb
-	complex*16,dimension(0:1)::Jtxf,Jtxb
+	complex*16,dimension(0:1,0:1)::xf,xb,yf,yb,zf,zb,zz
+	complex*16,dimension(0:1,0:1)::txf,txb,tyf,tyb,tzf,tzb
+	complex*16,dimension(0:1,0:1)::Jtxf,Jtxb
 
 	! MPI
 	integer::status,ierr,num_procs,my_id,rlz_id
@@ -140,17 +142,15 @@
 	pauli_z = 0d0
 	pauli_z(0,0) = 1d0
 	pauli_z(1,1) = - 1d0
-	xf(0)= 0.5d0*III*pauli_x(0,1)
-	xf(1)= 0.5d0*III*pauli_x(1,0)
-	xb(0)=-0.5d0*III*pauli_x(0,1)
-	xb(1)=-0.5d0*III*pauli_x(1,0)
 
-	yf(0)= 0.5d0*III*pauli_y(0,1)
-	yf(1)= 0.5d0*III*pauli_y(1,0)
-	yb(0)=-0.5d0*III*pauli_y(0,1)
-	yb(1)=-0.5d0*III*pauli_y(1,0)
+	! ordinary
+	xf= 0.5d0*III*pauli_x
+	xb=-0.5d0*III*pauli_x
 
-	zf(0)= 0.5d0*III*pauli_z(0,0)
-	zf(1)= 0.5d0*III*pauli_z(1,1)
-	zb(0)=-0.5d0*III*pauli_z(0,0)
-	zb(1)=-0.5d0*III*pauli_z(1,1)
+	yf= 0.5d0*III*pauli_y
+	yb=-0.5d0*III*pauli_y
+
+	zf= 0.5d0*III*pauli_z
+	zb=-0.5d0*III*pauli_z
+	
+	zz= 0d0

@@ -28,7 +28,11 @@
               '(a,i4.4)')trim(outputfile)//"_",rlz_id
 
           ! make H (and normalize)
+        if (BHZ) then
+          include "make_h_BHZ.f90"
+        else
           include "make_h.f90"
+        endif 
           ! check
           !call printCSR(N,NNZ,A,col,rp)
 

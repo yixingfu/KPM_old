@@ -18,7 +18,20 @@
           Twist = (Twist)*pi/L! 0 to pi??
       endif
 
+        ! BHZ Definition
 
+        if (BHZ) then
+        xf= BHZ_SPIN * 0.5d0*III*pauli_x + 0.5d0*pauli_z
+        xb=-BHZ_SPIN * 0.5d0*III*pauli_x + 0.5d0*pauli_z
+
+        yf= 0.5d0*III*pauli_y + 0.5d0*pauli_z
+        yb=-0.5d0*III*pauli_y + 0.5d0*pauli_z
+
+        zf=0d0
+        zb=0d0
+
+        zz=(BHZ_M-2d0)*pauli_z
+        endif
 
       ! Add Twist
       txf = xf*cdexp(dcmplx(0d0,Twist(1)))
@@ -28,6 +41,9 @@
       tzf = zf*cdexp(dcmplx(0d0,Twist(3)))
       tzb = zb*cdexp(dcmplx(0d0,-Twist(3)))
         if (my_id .eq. 0) then
+                write(*,*) 'BHZ:',BHZ
+                write(*,*) 'BHZ spin:',BHZ_SPIN
+                write(*,*) 'BHZ M:',BHZ_M
                 write(*,*) '-',txf
                 write(*,*) '-',txb
                 write(*,*) '-',tyf
@@ -116,10 +132,10 @@
           do s = 0,1
           s_ = 1-s
           ! set row pointer and disorder term
-          rp(rp_ind) = 5*rp_ind-4
+          rp(rp_ind) = 9*rp_ind-8
           col(col_ind) = rp_ind
           rp_ind = rp_ind+1
-          A(col_ind) = eps(eps_ind)
+          A(col_ind) = eps(eps_ind) + zz(s,s)! zz for BHZ
           col_ind = col_ind+1
 
           ! x forward
@@ -128,6 +144,12 @@
           ind_r = xys2i(modulo(i-2,L)+1,j,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = txf(s,s_)*t_tmp
+!        write(*,*)A(col_ind)
+          col_ind = col_ind+1
+          ind_r = xys2i(modulo(i-2,L)+1,j,s,L)
+          col(col_ind) = ind_r
+          A(col_ind) = txf(s,s)*t_tmp
+!        write(*,*)A(col_ind)
           col_ind = col_ind+1
 
           ! x backward
@@ -136,6 +158,12 @@
           ind_r = xys2i(modulo(i,L)+1,j,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = txb(s,s_)*t_tmp
+!        write(*,*)A(col_ind)
+          col_ind = col_ind+1
+          ind_r = xys2i(modulo(i,L)+1,j,s,L)
+          col(col_ind) = ind_r
+          A(col_ind) = txb(s,s)*t_tmp
+!        write(*,*)A(col_ind)
           col_ind = col_ind+1
 
           ! y forward
@@ -144,6 +172,12 @@
           ind_r = xys2i(i,modulo(j-2,L)+1,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = tyf(s,s_)*t_tmp
+!        write(*,*)A(col_ind)
+          col_ind = col_ind+1
+          ind_r = xys2i(i,modulo(j-2,L)+1,s,L)
+          col(col_ind) = ind_r
+          A(col_ind) = tyf(s,s)*t_tmp
+!        write(*,*)A(col_ind)
           col_ind = col_ind+1
 
           ! y backward
@@ -152,6 +186,12 @@
           ind_r = xys2i(i,modulo(j,L)+1,s_,L)
           col(col_ind) = ind_r
           A(col_ind) = tyb(s,s_)*t_tmp
+!        write(*,*)A(col_ind)
+          col_ind = col_ind+1
+          ind_r = xys2i(i,modulo(j,L)+1,s,L)
+          col(col_ind) = ind_r
+          A(col_ind) = tyb(s,s)*t_tmp
+!        write(*,*)A(col_ind)
           col_ind = col_ind+1
 
           End do
@@ -216,13 +256,13 @@
           ! z forward
           ind_r = xyzs2i(i,j,modulo(k-2,L)+1,s,L)
           col(col_ind) = ind_r
-          A(col_ind) = tzf(s,s)
+          A(col_ind) = tzf(s,s_)
           col_ind = col_ind+1
 
           ! z backward
           ind_r = xyzs2i(i,j,modulo(k,L)+1,s,L)
           col(col_ind) = ind_r
-          A(col_ind) = tzb(s,s)
+          A(col_ind) = tzb(s,s_)
           col_ind = col_ind+1
 
           End do
